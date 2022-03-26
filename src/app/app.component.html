@@ -1,0 +1,94 @@
+<!--The page where everything will be displayed in our app.-->
+<!-- The header -->
+<!-- -------------------------------------------- TEACHER/ADMIN MENU  --------------------------------------------------------->
+
+<div *ngIf="isValidPath()">
+    <div *ngIf='isAdmin() || isTeacher()' class="w3-bar w3-blue-grey">
+        <div class="w3-bar-item w3-hide-medium w3-text-amber w3-large"><b>NOTATIS</b></div>
+        <a [routerLink] = "['/overview']" onclick="closeSettingsDropdown(); closeUserDropdown()" class="w3-bar-item w3-button w3-hide-small w3-border-right w3-large"><i class="fa fa-list" aria-hidden="true"></i>{{HTMLtext[0]}}</a>
+        <a [routerLink] = "['/addremark']" onclick="closeSettingsDropdown(); closeUserDropdown()" (click)="addRemarkURL()" class="w3-bar-item w3-button w3-hide-small w3-border-right  w3-large"><i class="fa fa-plus-circle" aria-hidden="true"></i>{{HTMLtext[29]}}</a>
+        <a [routerLink] = "['/ranking']" onclick="closeSettingsDropdown(); closeUserDropdown()" class="w3-bar-item w3-button w3-hide-small w3-border-right w3-large"><i class="fa fa-list-ol" aria-hidden="true"></i>Ranking</a>
+        
+        <div class="w3-dropdown-click w3-hide-small w3-border-right  w3-large">
+          <button class="w3-button" onclick="settingsDropdown()">
+            <i class="fa fa-cog" aria-hidden="true"></i>{{HTMLtext[49]}} <i class="fa fa-caret-down"></i>
+            </button>
+            <div id="settingsDropdown" onclick="closeSettingsDropdown(); closeUserDropdown()" class="w3-dropdown-content w3-bar-block w3-card">
+              <a [routerLink] = "['/settings']" class="w3-bar-item w3-button w3-hide-small w3-border w3-large" onclick="settingsDropdown()">{{HTMLtext[44]}}</a>
+              <a *ngIf='isAdmin()' [routerLink] = "['/schoolsettings']" class="w3-bar-item w3-button w3-hide-small w3-border  w3-large" onclick="settingsDropdown()">{{HTMLtext[45]}}</a>
+              </div>
+        </div>
+       
+        <!-- *ngIf="currentUserRole == 4" -->
+        <div *ngIf='isAdmin()' class="w3-dropdown-click w3-hide-small w3-border-right  w3-large">
+          <button class="w3-button" onclick="userDropdown()">
+          <i class="fa fa-address-card" aria-hidden="true"></i>{{HTMLtext[46]}} <i class="fa fa-caret-down"></i>
+          </button>
+          <div id="userDropdown" onclick="closeSettingsDropdown(); closeUserDropdown()" class="w3-dropdown-content w3-bar-block w3-card">
+          <a [routerLink] = "['/teachers']" class="w3-bar-item w3-button w3-hide-small w3-border w3-large" onclick="userDropdown()">{{HTMLtext[47]}}</a>
+          <a [routerLink] = "['/students']" class="w3-bar-item w3-button w3-hide-small w3-border  w3-large" onclick="userDropdown()">{{HTMLtext[48]}}</a>
+          <a [routerLink] = "['/parents']" class="w3-bar-item w3-button w3-hide-small w3-border  w3-large" onclick="userDropdown()">{{HTMLtext[165]}}</a>
+        </div>
+         </div>
+        <button [routerLink] = "['/login']" (click)='logout()' class="w3-bar-item w3-button w3-hide-small w3-border-left w3-right  w3-large"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="headerToggleShow()">&#9776;</a>
+      </div>
+      
+
+      <div *ngIf='isAdmin() || isTeacher()' id="demo" class="w3-bar-block w3-border w3-light-grey w3-hide w3-hide-large w3-hide-medium">
+        <a [routerLink] = "['/overview']" onclick="openFilter('demo')" class="w3-bar-item w3-button  w3-large"><i class="fa fa-list w3-padding-small" aria-hidden="true"></i>{{HTMLtext[0]}}</a>
+        <a [routerLink] = "['/addremark']" onclick="openFilter('demo')" (click)="addRemarkURL()" [ngClass]="{'w3-indigo': currentURL=='/addRemark'}" class="w3-bar-item w3-button  w3-large"><i class="fa fa-plus-circle w3-padding-small" aria-hidden="true"></i>{{HTMLtext[29]}}</a>
+        <a [routerLink] = "['/ranking']" onclick="openFilter('demo')" class="w3-bar-item w3-button  w3-large"><i class="fa fa-list-ol w3-padding-small" aria-hidden="true"></i>Ranking</a>
+        <a [routerLink] = "['/settings']" onclick="openFilter('demo')" class="w3-bar-item w3-button  w3-large"><i class="fa fa-wrench w3-padding-small" aria-hidden="true"></i>{{HTMLtext[49]}}</a>
+        <a [routerLink] = "['/login']" onclick="openFilter('demo')" (click)='logout()' class="w3-bar-item w3-button  w3-large"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+
+        <!--
+        <a [routerLink] = "['/teachers']" class="w3-bar-item w3-button"><i class="fa fa-address-card w3-padding-small" aria-hidden="true"></i>User management</a>
+        <a [routerLink] = "['/students']" class="w3-bar-item w3-button"><i class="fa fa-sign-out w3-padding-small" aria-hidden="true"></i></a>
+        -->
+      </div>
+</div>
+<!-- -------------------------------------------- STUDENT MENU  -------------------------------------------------------------->
+
+<div *ngIf="isValidPath()">
+  <div *ngIf='isStudent() || isParent()' class="w3-bar w3-blue-grey">
+      <div class="w3-bar-item w3-hide-medium w3-text-amber w3-large"><b>NOTATIS</b></div>
+      <a [routerLink] = "['/studentoverview']" onclick="closeSettingsDropdown()" class="w3-bar-item w3-button w3-hide-small w3-border-right w3-large"><i class="fa fa-list" aria-hidden="true"></i>{{HTMLtext[0]}}</a>
+      <a [routerLink] = "['/ranking']" onclick="closeSettingsDropdown()" class="w3-bar-item w3-button w3-hide-small w3-border-right w3-large"><i class="fa fa-list-ol" aria-hidden="true"></i>Ranking</a>
+      
+      <div class="w3-dropdown-click w3-hide-small w3-border-right  w3-large">
+        <button class="w3-button" onclick="settingsDropdown()">
+          <i class="fa fa-cog" aria-hidden="true"></i>{{HTMLtext[49]}} <i class="fa fa-caret-down"></i>
+          </button>
+          <div id="settingsDropdown" onclick="closeSettingsDropdown(); closeUserDropdown()" class="w3-dropdown-content w3-bar-block w3-card">
+            <a [routerLink] = "['/settings']" class="w3-bar-item w3-button w3-hide-small w3-border w3-large" onclick="settingsDropdown()">{{HTMLtext[44]}}</a>
+            </div>
+      </div>
+     
+      <button [routerLink] = "['/login']" (click)='logout()' class="w3-bar-item w3-button w3-hide-small w3-border-left w3-right  w3-large"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+      <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="headerToggleShow()">&#9776;</a>
+    </div>
+    
+
+    <div *ngIf='isStudent()' id="demo" class="w3-bar-block w3-border w3-light-grey w3-hide w3-hide-large w3-hide-medium">
+      <a [routerLink] = "['/studentoverview']" onclick="openFilter('demo')" class="w3-bar-item w3-button  w3-large"><i class="fa fa-list w3-padding-small" aria-hidden="true"></i>{{HTMLtext[0]}}</a>
+      <a [routerLink] = "['/ranking']" onclick="openFilter('demo')" class="w3-bar-item w3-button  w3-large"><i class="fa fa-list w3-padding-small" aria-hidden="true"></i>Ranking</a>
+      <a [routerLink] = "['/settings']" onclick="openFilter('demo')" class="w3-bar-item w3-button  w3-large"><i class="fa fa-wrench w3-padding-small" aria-hidden="true"></i>{{HTMLtext[49]}}</a>
+      <a [routerLink] = "['/login']" onclick="openFilter('demo')" (click)='logout()' class="w3-bar-item w3-button  w3-large"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+
+      <!--
+      <a [routerLink] = "['/teachers']" class="w3-bar-item w3-button"><i class="fa fa-address-card w3-padding-small" aria-hidden="true"></i>User management</a>
+      <a [routerLink] = "['/students']" class="w3-bar-item w3-button"><i class="fa fa-sign-out w3-padding-small" aria-hidden="true"></i></a>
+      -->
+    </div>
+</div>
+<div class="w3-container">
+  <paMessages></paMessages>
+</div>
+<!-- The main section of the page-->
+<div>
+<router-outlet></router-outlet>
+</div>
+<!-- End of main section of the page-->
+
+

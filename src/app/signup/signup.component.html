@@ -1,0 +1,132 @@
+<div class="w3-row">
+  <h1 class="w3-text-orange w3-center w3-border-bottom w3-padding"><b>NOTATIS</b></h1>
+</div>
+
+<div>
+    <form class="w3-container" [formGroup]="signupForm" (ngSubmit)="signup()">
+    <div class="w3-container">
+      <h2>Maak een account voor jouw school. Het kost je minder dan 2 minuten!</h2>
+      <p>Gelieve het formulier met de schoolinformatie en beheerdersinformatie in te vullen om een account aan te maken.
+      </p>
+      <hr>
+
+        <h3 class="w3-text-white w3-orange w3-padding">Beheerdersinformatie</h3>
+        <div class="w3-row">
+          <div class="w3-col m2 w3-container">
+
+          </div>
+
+          <div class="w3-col m8 w3-panel w3-light-grey w3-card w3-padding w3-container">
+            <div class="w3-text-orange"><b>Voornaam van de beheerder</b></div>
+            <div class="w3-margin-bottom">
+              <input class="w3-input" placeholder="Voornaam" formControlName="firstName" name="firstName" required>
+            </div>
+
+            <div class="w3-text-orange"><b>Familienaam van de beheerder</b></div>
+            <div class="w3-margin-bottom">
+              <input class="w3-input" placeholder="Familienaam" formControlName="lastName" name="lastName" required>
+            </div>
+
+            <div class="w3-text-orange"><b>Taal</b></div>
+            <div class="w3-margin-bottom">
+              <select class="w3-select" formControlName="language" name="language">
+                <option value="" disabled selected>Kies de taal</option>
+                <option value="en" [selected]="language == 'en'">English</option>
+                <option value="fr" [selected]="language == 'fr'">Français</option>
+                <option value="nl" [selected]="language == 'nl'">Nederlands</option>
+              </select>
+            </div>
+
+            <div class="w3-text-orange"><b>E-mailadres</b></div>
+            <div class="w3-margin-bottom">
+              <input class="w3-input" placeholder="e-mail" formControlName="email" name="email" required>
+            </div>
+
+            <div class="w3-text-orange"><b>Wachtwoord</b></div>
+            <div class="w3-margin-bottom">
+              <input (input)="checkPasswordMatch()" class="w3-input" placeholder="Kies een wachtwoord" formControlName="password" name="password" required>
+            </div>
+            <div class="w3-text-red" *ngIf="signupForm.get('password').touched && signupForm.get('password').invalid">
+                This is a required field.
+              </div>
+
+            <div class="w3-text-orange"><b>Bevestig wachtwoord</b></div>
+            <div class="w3-margin-bottom">
+              <input (input)="checkPasswordMatch()" class="w3-input" placeholder="Typ het gekozen wachtwoord opnieuw" formControlName="passwordagain" name="passwordagain" required>
+            </div>
+            <div class="w3-text-red" *ngIf="!passwordsMatch">
+                This is a required field that must match the password field.
+              </div>
+          </div>
+
+          <div class="w3-col m2 w3-container">
+
+          </div>
+        </div>
+
+        <h3 class="w3-text-white w3-orange w3-padding">Schoolinformatie</h3>
+        <div class="w3-row">
+          <div class="w3-col m2 w3-container">
+
+          </div>
+
+          <div class="w3-col m8 w3-panel w3-light-grey w3-card w3-padding w3-container">
+            <div class="w3-text-orange"><b>Naam van de school: </b></div>
+            <div class="w3-margin-bottom">
+              <input class="w3-input" placeholder="Geef de schoolnaam in, bv. Koninklijk Atheneum Brussel"
+                name="schoolName" formControlName="schoolName" required>
+            </div>
+
+            <div class="w3-text-orange"><b>Schoolcode: </b></div>
+            <div class="w3-margin-bottom">
+              <input class="w3-input" placeholder="Kies een code om je school te identificeren, bv. KABrussel"
+                name="schoolCode" formControlName="schoolCode" required>
+            </div>
+
+            <div class="w3-text-orange"><b>Straat: </b></div>
+            <div class="w3-margin-bottom">
+              <input class="w3-input" placeholder="Vul hier de straat in" formControlName="street" name="street" required>
+            </div>
+
+            <div class="w3-text-orange"><b>Huisnummer: </b></div>
+            <div class="w3-margin-bottom">
+              <input class="w3-input" placeholder="Vul hier het huisnummer in" formControlName="number" name="number" required>
+            </div>
+
+            <div class="w3-text-orange"><b>Postcode: </b></div>
+            <div class="w3-margin-bottom">
+              <input class="w3-input" placeholder="Vul hier de postcode in" formControlName="postalCode" name="postalCode" required>
+            </div>
+
+            <div class="w3-text-orange"><b>Stad: </b></div>
+            <div class="w3-margin-bottom">
+              <input class="w3-input" placeholder="Vul hier de stad in" formControlName="city" name="city" required>
+            </div>
+
+            <div class="w3-text-orange"><b>Land: </b></div>
+            <div class="w3-margin-bottom">
+              <input class="w3-input" placeholder="Vul hier het land in" formControlName="country" name="country" required>
+            </div>
+
+            <div class="w3-text-orange"><b>Telefoonnumer: </b></div>
+            <div class="w3-margin-bottom">
+              <input class="w3-input" placeholder="Vul hier het telefoonnumer van de school in" formControlName="phone" name="phone"
+                required>
+            </div>
+          </div>
+      <div class="w3-col m2 w3-container">
+
+      </div>
+    </div>
+
+    <p>Door het aanmaken van een account verklaar je je akkoord met onze <a href="#" style="color:dodgerblue">Algemene
+        voorwaarden</a>.</p>
+
+    <div class="w3-center w3-margin-bottom">
+      <button [disabled]="signupForm.invalid" type="submit" class="w3-button w3-margin-right w3-blue">Maak Account</button>
+      <a href="#" class="w3-button w3-grey">Annuleer</a>
+    </div>
+
+</div>
+</form>
+</div>

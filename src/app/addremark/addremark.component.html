@@ -1,0 +1,102 @@
+<div>
+
+    <div class="w3-tiny w3-text-grey w3-padding">Home -> {{HTMLtext[29]}}</div>
+      
+    <div class="w3-row">
+    <div *ngIf="showUpper" class="w3-col m6 l6">
+
+      <div class="w3-card-4">
+        <div class="w3-orange w3-padding">
+          <i class="fa fa-filter"></i>{{HTMLtext[1]}}
+        <input class="w3-input" type="text" #filter (keyup)="onFilterChange(filter.value)">
+        </div>
+      </div>
+
+    
+     
+    
+     <ul class="w3-ul w3-border w3-hoverable" style="height:25rem;overflow:scroll">
+      <li [hidden]="!filterApplies(student) || !student.active" *ngFor="let student of selectableStudents; let i = index">
+          <div class="w3-medium">
+              <button (click)='selectStudent(i)' class="w3-button w3-tiny w3-round w3-green">
+                  <i class="fa fa-plus-circle" ></i>
+              </button>
+            {{student.classSchoolyears[0].schoolClass}} | {{student.lastName}} {{student.firstName}} 
+          </div>
+      </li>
+    </ul>
+     
+    <div>
+    <div class="w3-text-orange w3-medium"><b>{{HTMLtext[30]}} ({{selectedStudents.length}})</b></div>
+    </div>
+
+    <div class="w3-center">
+        <button (click)="toLower()" class="w3-button w3-round w3-orange">
+            {{HTMLtext[4]}}
+        </button>
+    </div>
+  </div>
+    
+     
+      <div *ngIf="showLower" class="w3-col m6 l6 w3-padding">
+
+      <div class="w3-row w3-padding-medium">
+      <label class="w3-row-item w3-text-orange w3-medium" style="width:30%"><b>{{HTMLtext[31]}}</b></label>
+      <input class="w3-row-item w3-input w3-border w3-round w3-light-grey w3-small" type="date" [ngModel] ="selectedDate | date:'yyyy-MM-dd'" (ngModelChange)="selectedDateChanged($event)"> 
+    </div>
+
+      <div class="w3-row w3-margin-top">      
+      <label class="w3-row-item w3-text-orange w3-medium" style="width:30%"><b>Remark</b></label>
+      <select [(ngModel)]="selectedOption" (ngModelChange)="selectedOptionChanged($event)" class="w3-bar-item w3-small w3-select w3-border w3-round w3-light-grey" name="option">
+        <option value="" disabled selected>{{HTMLtext[32]}}</option>
+        <option *ngFor="let remark of remarkoptions" [ngValue]="remark.option">{{remark.option}}</option>
+      </select></div>
+      
+      <div class="w3-block">
+      <label class="w3-text-orange w3-margin-right w3-medium"><b>{{HTMLtext[33]}}</b></label>
+      <p class="w3-show-inline-block w3-green w3-center w3-padding-small" style="width:15%">
+      <input [(ngModel)]="severity" (ngModelChange)="severityChanged($event)" class="w3-radio" type="radio" name="severity" value="1">
+      </p>
+      <p class="w3-show-inline-block w3-yellow  w3-center w3-padding-small" style="width:15%;">
+      <input [(ngModel)]="severity" (ngModelChange)="severityChanged($event)" class="w3-radio" type="radio" name="severity" value="2">
+      </p>
+        <p class="w3-show-inline-block w3-orange  w3-center w3-padding-small" style="width:15%;">
+      <input [(ngModel)]="severity" (ngModelChange)="severityChanged($event)" class="w3-radio" type="radio" name="severity" value="3">
+      </p>
+      <p class="w3-show-inline-block w3-red  w3-center w3-padding-small" style="width:15%;">
+      <input [(ngModel)]="severity" (ngModelChange)="severityChanged($event)" class="w3-radio" type="radio" name="severity" value="4">
+      </p>
+      </div>
+      
+ 
+       <div class="w3-text-orange w3-half w3-medium"><b>{{HTMLtext[30]}} ({{selectedStudents.length}})</b>
+       </div>
+       <div class="w3-row">
+        <div (click)="toUpper()" class="w3-right w3-border w3-border-green">
+            {{HTMLtext[34]}}
+        </div>
+      </div>
+       <ul class="w3-ul w3-border w3-hoverable" style="max-height:14rem; overflow:scroll">
+          <li *ngFor="let student of selectedStudents; let i = index">
+              <div class="w3-medium">  
+                  <button (click)='unSelectStudent(i)' class="w3-button w3-tiny w3-round w3-red">
+                      <i class="fa fa-window-close w3-padding-small" aria-hidden="true"></i>
+                  </button>
+                {{student.classSchoolyears[0].schoolClass}} | {{student.lastName}} {{student.firstName}}
+            </div>
+          </li>
+        </ul>
+ 
+    
+            <div class="w3-row w3-margin-top"> 
+          <label class="w3-row-item w3-text-orange w3-medium"><b>Extra info</b></label>
+      <input [(ngModel)]="extraInfo" (ngModelChange)="extraInfoChanged($event)" class="w3-bar-item w3-input w3-border w3-round-xxlarge" name="last" type="text">
+      </div>
+
+      <p class="w3-center">
+      <button [disabled]="notAllFilledIn()" (click)="saveRemarks()" class="w3-btn w3-blue">{{HTMLtext[35]}}</button></p>
+       
+     </div>
+     </div>
+     
+    </div> 

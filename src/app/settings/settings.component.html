@@ -1,0 +1,38 @@
+<div class="w3-container">
+  <div class="w3-tiny w3-text-grey w3-padding">Home -> {{HTMLtext[36]}}</div>
+  <p>{{HTMLtext[37]}}</p>
+
+  <div class="w3-row">
+    <div class="w3-col l6">
+      <div class="w3-card-4 w3-padding">
+        <header class="w3-container w3-orange">
+          <h3>{{HTMLtext[38]}}</h3>
+        </header>
+
+        <div class="w3-container">
+          <form [formGroup]="passwordForm" (ngSubmit)="saveEditedPassword()">
+            <p>
+              <label class="w3-text-orange"><b>{{HTMLtext[39]}}</b></label>
+              <input class="w3-input w3-border w3-lightgrey" name="oldpassword" type="text"
+                name="oldpassword" formControlName="oldpassword"></p>
+                <div class="w3-text-red" *ngIf="!oldPasswordCorrect">
+                    {{HTMLtext[40]}}
+              </div>
+            <p>
+              <label class="w3-text-orange"><b>{{HTMLtext[41]}} </b></label>
+              <input (input)="checkPasswordMatchEdit()" class="w3-input w3-border w3-lightgrey" 
+                name="newpassword" type="text" formControlName="newpassword"></p>
+            <p>
+              <label class="w3-text-orange"><b>{{HTMLtext[42]}}</b></label>
+              <input (input)="checkPasswordMatchEdit()" class="w3-input w3-border w3-lightgrey" 
+                name="newpasswordagain" type="text" formControlName="newpasswordagain"></p>
+
+            <p class=" w3-center">
+              <button [disabled]="passwordForm.invalid" class="w3-btn w3-blue">{{HTMLtext[43]}}</button></p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="w3-light-grey w3-display-container" style="height:600px">
+
+<div class="w3-display-middle">
+    <div class="w3-center">
+      <button class="w3-margin w3-orange w3-xlarge" onclick="document.getElementById('login').style.display='block'" style="width:auto;"><b>Login</b></button>
+      <a [routerLink] = "['/signup']">Sign Up</a>
+    </div>
+</div>
+
+
+<div id="login" class="modal">
+  
+  <form class="modal-content animate" [formGroup]="loginForm">
+    <!--
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('login').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="img_avatar2.png" alt="Avatar" class="avatar">
+    </div>
+    -->
+
+    <div *ngIf="loginError"
+      class="w3-panel w3-center new-message w3-red"
+      [@EnterLeave]="'flyIn'">
+      <h4>Error logging in.</h4>
+  </div>
+
+    <div class="w3-container w3-light-grey">
+      <label for="username" class="w3-text-orange"><b>Username</b></label>
+      <input type="text" (keyup.enter)="onLogin()" placeholder="Enter Username" name="username" formControlName="username" required>
+
+      <label for="password" class="w3-text-orange"><b>Password</b></label>
+      <input type="password" (keyup.enter)="onLogin()" placeholder="Enter Password" name="password" formControlName="password" required>
+	  
+	  <label for="schoolcode" class="w3-text-orange"><b>Schoolcode</b></label>
+      <input type="text" (keyup.enter)="onLogin()" placeholder="Enter Schoolcode" name="schoolcode" formControlName="schoolcode" required>
+        
+      <button (click)="onLogin()" type="button" class="w3-orange w3-xlarge">Login</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('login').style.display='none'" class="cancelbtn w3-grey">Cancel</button>
+      <span class="psw">Forgot <a [routerLink] = "['/forgotpassword']">password?</a></span>
+    </div>
+  </form>
+</div>
+
+
+
+
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+
+
+<script>
+// Get the modal
+var modal = document.getElementById('login');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+</body>
+</html>

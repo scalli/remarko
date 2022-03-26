@@ -1,0 +1,188 @@
+<div>
+    <div  class="w3-amber w3-padding-small w3-center w3-container" style="width:100%">
+        <span class="w3-margin-right"><b>Vandaag:</b></span>
+        <span class="w3-green w3-border w3-margin-right w3-center" style="display: inline-block; width:35px">
+          {{todaysOnes}}
+        </span>
+        <span class="w3-yellow w3-border w3-margin-right w3-center" style="display: inline-block; width:35px">
+          {{todaysTwos}}
+        </span>
+        <span class=" w3-orange w3-border w3-margin-right  w3-center" style="display: inline-block; width:35px">
+          {{todaysThrees}}
+        </span>
+        <span class="w3-red w3-border w3-margin-right w3-center" style="display: inline-block; width:35px">
+          {{todaysFours}}
+        </span>
+      </div>
+
+  <div class="w3-tiny w3-text-grey w3-padding">Home -> {{HTMLtext[0]}}</div>
+
+  <div class="w3-col m6 l6 w3-padding">
+
+
+    <form [formGroup]="filterForm">
+      <button onclick="openFilter('RemarkFilter')" class="w3-btn w3-block w3-orange w3-left-align w3-border">
+        <i class="fa fa-angle-double-down w3-right"></i>{{HTMLtext[5]}}
+      </button>
+      <label [ngClass]="{'w3-text-blue' : !filterChangedNotApplied, 'w3-text-red' : filterChangedNotApplied}"
+        class="w3-tiny">
+        <b>Filters:
+          {{HTMLtext[7]}}:
+          {{(selectedStudent) ? selectedStudent.firstName : ""}}
+          {{(selectedStudent) ? " " : " "}}
+          {{(selectedStudent) ? selectedStudent.lastName : ""}}
+          {{(selectedStudent) ? "("  : ""}}
+          {{(selectedStudent) ? selectedStudent.classSchoolyears[0].schoolClass  : ""}}
+          {{(selectedStudent) ? ")"  : ""}}
+
+          {{(selectedSchoolClass) ? selectedSchoolClass.schoolClass : ""}}
+
+          {{(!selectedSchoolClass) && (!selectedStudent) ? HTMLtext[8] : ""}}
+
+          /
+
+          {{HTMLtext[9]}}: {{filterDateFrom}} {{HTMLtext[10]}}: {{filterDateTo}} /
+          {{HTMLtext[11]}}: {{(filterAuthorId != "all" ? HTMLtext[19] : HTMLtext[20])}} /
+          {{HTMLtext[13]}}: {{(filterSeverity1) ? "1" : ""}} {{(filterSeverity2) ? "2" : ""}}
+          {{(filterSeverity3) ? "3" : ""}} {{(filterSeverity4) ? "4" : ""}}
+        </b>
+      </label>
+      <div *ngIf="filterChangedNotApplied" class="w3-tiny w3-red w3-text-white">--> {{HTMLtext[25]}}</div>
+
+      <div id="RemarkFilter" class="w3-container w3-hide w3-border w3-padding">
+
+        <p class="w3-center">
+          <button [disabled]="!filterForm.valid" onclick="openFilter('RemarkFilter')" type="button"
+            (click)="applyFilter()" class="w3-btn w3-blue">
+            {{HTMLtext[14]}}
+          </button></p>
+
+
+        <div onclick="openFilter('dateFilter')" class="w3-panel w3-border-bottom w3-text-orange">
+          <b><i class="fa fa-angle-double-down w3-right"></i>
+            {{HTMLtext[15]}}
+            <i class="fa fa-angle-double-down w3-right"></i>
+          </b>
+        </div>
+        <div id="dateFilter" class="w3-hide">
+          <p class="w3-center">
+            <button type="button" class="w3-btn w3-orange" onclick="openFilter('dateFilter')"
+              (click)=h24()>1d</button>
+            <button type="button" class="w3-btn w3-orange w3-margin" onclick="openFilter('dateFilter')"
+              (click)="h48()">2d</button>
+            <button type="button" class="w3-btn w3-orange" onclick="openFilter('dateFilter')"
+              (click)="h72()">3d</button></p>
+          <p class="w3-center">
+            <button type="button" class="w3-btn w3-orange" onclick="openFilter('dateFilter')"
+              (click)="d7()">7d</button>
+            <button type="button" class="w3-btn w3-orange w3-margin" onclick="openFilter('dateFilter')"
+              (click)="d30()">30d</button>
+            <button type="button" class="w3-btn w3-orange" onclick="openFilter('dateFilter')"
+              (click)="d90()">90d</button></p>
+
+          <div class="w3-center">
+            <p class="w3-show-inline-block w3-margin">
+              <label><b>{{HTMLtext[9]}}</b></label>
+              <input class="w3-input w3-border w3-round w3-light-grey" onchange="openFilter('dateFilter')"
+                (change)="remarkFilterChanged()" type="date" name="filterDateFrom" formControlName="filterDateFrom">
+            </p>
+            <p class="w3-show-inline-block w3-margin">
+              <label><b>{{HTMLtext[10]}}</b></label>
+              <input class="w3-input w3-border w3-round w3-light-grey" onchange="openFilter('dateFilter')"
+                (change)="remarkFilterChanged()" type="date" name="filterDateTo" formControlName="filterDateTo">
+            </p>
+          </div>
+        </div>
+
+
+        <div onclick="openFilter('severityFilter')" class="w3-panel w3-border-bottom w3-text-orange">
+          <b><i class="fa fa-angle-double-down w3-right"></i>
+            {{HTMLtext[21]}}
+            <i class="fa fa-angle-double-down w3-right"></i>
+          </b>
+        </div>
+        <div id="severityFilter" class="w3-hide">
+          <div class="w3-block w3-center">
+            <p class="w3-show-inline-block w3-green w3-center w3-padding-small" style="width:15%;">
+              <input (change)="setSeverity1();remarkFilterChanged()" class="w3-check" type="checkbox"
+                name="filterSeverity1" value="1" formControlName="filterSeverity1">
+              <label>1</label></p>
+            <p class="w3-show-inline-block w3-yellow  w3-center w3-padding-small" style="width:15%;">
+              <input (change)="setSeverity2(); remarkFilterChanged()" class="w3-check" type="checkbox"
+                name="filterSeverity2" value="2" formControlName="filterSeverity2">
+              <label>2</label></p>
+            <p class="w3-show-inline-block w3-orange  w3-center w3-padding-small" style="width:15%;">
+              <input (change)="setSeverity3(); remarkFilterChanged()" class="w3-check" type="checkbox"
+                name="filterSeverity3" value="3" formControlName="filterSeverity3">
+              <label>3</label></p>
+            <p class="w3-show-inline-block w3-red  w3-center w3-padding-small" style="width:15%;">
+              <input (change)="setSeverity4(); remarkFilterChanged()" class="w3-check" type="checkbox"
+                name="filterSeverity4" value="4" formControlName="filterSeverity4">
+              <label>4</label></p>
+          </div>
+        </div>
+
+        <p class="w3-center">
+          <button [disabled]="!filterForm.valid" onclick="openFilter('RemarkFilter')" type="button"
+            (click)="applyFilter()" class="w3-btn w3-blue">
+            {{HTMLtext[14]}}
+          </button></p>
+
+        <div class="w3-right w3-border w3-grey w3-medium w3-show-inline-block" onclick="openFilter('RemarkFilter')">
+          <span><i class="fa fa-angle-double-up"></i></span>
+          <span class="w3-margin">{{HTMLtext[22]}}</span>
+          <span><i class="fa fa-angle-double-up "></i></span>
+        </div>
+      </div>
+    </form>
+
+    <div class="w3-margin-top">
+      <div class="w3-text-orange w3-container"><b>{{HTMLtext[23]}}<span
+            *ngIf="filteredRemarks">({{filteredRemarks.length}})</span></b>
+            <div class="w3-xlarge w3-right" (click)="downloadWord()"><i class="w3-indigo fa fa-file-word-o" aria-hidden="true"></i></div>
+          </div>
+            <!-- style="max-height:22rem;overflow:scroll" bij ul voegen om ul te beperken in height-->
+      <ul class="w3-ul w3-border w3-hoverable">
+        <li *ngFor="let remark of filteredRemarks" class="w3-row">
+          <div [ngClass]="{'w3-green' : remark[3] == 1, 'w3-yellow' : remark[3] == 2,
+              'w3-orange' : remark[3] == 3, 'w3-red' : remark[3] == 4}" class="w3-col w3-center" style="width:15%">
+            {{remark[3]}}
+          </div>
+          <div (click)='onExtraInfo(remark[4])' class="w3-col w3-row-padding w3-rest" style="width:70%">
+            <div class="w3-medium">
+              <span><b>{{remark[9]}}</b></span>
+              <span>&nbsp;</span>
+              <span><b>{{remark[8]}}</b></span>
+              <span>&nbsp;</span>
+              <span><b>({{remark[10]}})</b></span>
+            </div>
+            <div class="w3-small">{{remark[2]}} <span *ngIf="remark[4] != null">**</span></div>
+            <div class="w3-small">{{remark[1]}}</div>
+            <div class="w3-small">
+              <span>{{remark[6]}}</span>
+              <span>&nbsp;</span>
+              <span>{{remark[7]}}</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+
+<div id="extraInfo" class="w3-modal" [style.display]='displayExtraInfo'>
+  <div class="w3-modal-content w3-animate-top">
+    <header class="w3-container w3-orange">
+      <span (click)='hideExtraInfo()' class="w3-button w3-display-topright">&times;</span>
+      <h4>{{HTMLtext[96]}}</h4>
+    </header>
+    <div class="w3-container w3-center">
+      <p>{{extraInfoSelected}}</p>
+    </div>
+    <div class="w3-container w3-padding-small w3-center">
+      <button (click)='hideExtraInfo()' class="w3-button w3-grey w3-margin">{{HTMLtext[95]}}</button>
+    </div>
+  </div>
+</div>

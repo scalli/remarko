@@ -1,0 +1,7 @@
+<div *ngIf="lastMessage"
+    class="w3-panel w3-center new-message"
+    [class.w3-red]="lastMessage.error"
+    [class.w3-green]="!lastMessage.error"
+    [@EnterLeave]="'flyIn'">
+    <h4>{{lastMessage.text}}</h4>
+</div>

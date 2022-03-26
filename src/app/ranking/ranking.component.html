@@ -1,0 +1,89 @@
+<div class="w3-tiny w3-text-grey w3-padding">Home -> {{HTMLtext[154]}}</div>
+
+<div class="w3-text-grey w3-padding">{{HTMLtext[155]}} {{lastUpdated}}</div>
+
+<div class="w3-text-grey w3-padding">Period from {{dateFrom}} to {{dateTo}}</div>
+
+<div class="w3-center w3-margin-bottom">
+  <span class="w3-btn" [ngClass]="{'w3-blue': allRankingsSelected, 'w3-light-grey': !allRankingsSelected}"
+    (click)="allRankings()">All</span>
+  <span class="w3-btn w3-margin-left"
+    [ngClass]="{'w3-blue': !allRankingsSelected, 'w3-light-grey': allRankingsSelected}"
+    (click)="allByClassRankings()">By class</span>
+</div>
+
+<!--
+<div class="w3-responsive">
+    <table class="w3-table-all">
+        <tr class="w3-amber">
+            <th>Position</th>
+          <th>Name</th>
+          <th>Class</th>
+          <th class="w3-green w3-border w3-margin-right w3-center" style=" width:35px">
+              1
+          </th>
+            <th class="w3-yellow w3-border w3-margin-right w3-center" style=" width:35px">
+              2
+            </th>
+            <th class=" w3-orange w3-border w3-margin-right  w3-center" style=" width:35px">
+              3
+            </th>
+            <th class="w3-red w3-border w3-margin-right w3-center" style=" width:35px">
+              4
+            </th>
+            <th>
+                TOTAL
+            </th>
+      </tr>
+      <tr *ngFor="let rank of rankings; index as i">
+        <td [ngClass]="{'w3-border-top w3-blue': (!allRankingsSelected) && (i == 0 || rankings[i][3] != rankings[i-1][3]), 'w3-green': currentUserId == rankings[i][0]}"><div>{{rank[9]}}</div></td>
+        <td [ngClass]="{'w3-border-top w3-blue': (!allRankingsSelected) && (i == 0 || rankings[i][3] != rankings[i-1][3]), 'w3-green': currentUserId == rankings[i][0]}"><span>{{rank[2]}}</span><span class="w3-margin-left">{{rank[1]}}</span></td>
+        <td [ngClass]="{'w3-border-top w3-blue': (!allRankingsSelected) && (i == 0 || rankings[i][3] != rankings[i-1][3]), 'w3-green': currentUserId == rankings[i][0]}">{{rank[3]}}</td>
+        <td [ngClass]="{'w3-border-top w3-blue': (!allRankingsSelected) && (i == 0 || rankings[i][3] != rankings[i-1][3]), 'w3-green': currentUserId == rankings[i][0]}">{{rank[4]}}</td>
+        <td [ngClass]="{'w3-border-top w3-blue': (!allRankingsSelected) && (i == 0 || rankings[i][3] != rankings[i-1][3]), 'w3-green': currentUserId == rankings[i][0]}">{{rank[5]}}</td>
+        <td [ngClass]="{'w3-border-top w3-blue': (!allRankingsSelected) && (i == 0 || rankings[i][3] != rankings[i-1][3]), 'w3-green': currentUserId == rankings[i][0]}">{{rank[6]}}</td>
+        <td [ngClass]="{'w3-border-top w3-blue': (!allRankingsSelected) && (i == 0 || rankings[i][3] != rankings[i-1][3]), 'w3-green': currentUserId == rankings[i][0]}">{{rank[7]}}</td>
+        <td [ngClass]="{'w3-border-top w3-blue': (!allRankingsSelected) && (i == 0 || rankings[i][3] != rankings[i-1][3]), 'w3-green': currentUserId == rankings[i][0]}">{{rank[8]}}</td>
+      </tr>
+    </table>
+  </div>
+  -->
+<div class="w3-card-4">
+  <div class="w3-orange w3-padding">
+    <i class="fa fa-filter"></i>{{HTMLtext[1]}}
+    <input class="w3-input" type="text" #filter (keyup)="onFilterChange(filter.value)">
+  </div>
+</div>
+
+<div class="w3-responsive">
+  <table class="w3-table-all">
+    <tr class="w3-amber">
+      <th>Pos.</th>
+      <th>Student</th>
+      <th>TOTAAL</th>
+    </tr>
+    <tr [hidden]="!filterApplies(rank)" *ngFor="let rank of rankings; index as i">
+      <td
+        [ngClass]="{'w3-border-top w3-blue': (!allRankingsSelected) && (i == 0 || rankings[i][3] != rankings[i-1][3]), 'w3-green': currentUserId == rankings[i][0]}">
+        <div>{{rank[9]}}</div>
+      </td>
+      <td
+        [ngClass]="{'w3-border-top w3-blue': (!allRankingsSelected) && (i == 0 || rankings[i][3] != rankings[i-1][3]), 'w3-green': currentUserId == rankings[i][0]}">
+        <div><span>{{rank[3]}} - {{rank[2]}}</span><span class="w3-margin-left">{{rank[1]}}</span></div>
+        <div>
+          <span class="w3-green w3-border w3-margin-right w3-center"
+            style="display: inline-block; width:30px">{{rank[4]}}</span>
+          <span class="w3-yellow w3-border w3-margin-right w3-center"
+            style="display: inline-block; width:30px">{{rank[5]}}</span>
+          <span class=" w3-orange w3-border w3-margin-right  w3-center"
+            style="display: inline-block; width:30px">{{rank[6]}}</span>
+          <span class="w3-red w3-border w3-margin-right w3-center"
+            style="display: inline-block; width:30px">{{rank[7]}}</span>
+        </div>
+      </td>
+      <td
+        [ngClass]="{'w3-border-top w3-blue': (!allRankingsSelected) && (i == 0 || rankings[i][3] != rankings[i-1][3]), 'w3-green': currentUserId == rankings[i][0]}">
+        {{rank[8]}}</td>
+    </tr>
+  </table>
+</div>

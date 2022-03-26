@@ -1,0 +1,250 @@
+<div class="w3-container">
+  <div class="w3-tiny w3-text-grey w3-padding">{{HTMLtext[136]}}</div>
+
+  <div id="overview_students" class="w3-row w3-container full-height city">
+    <div class="w3-row w3-col m11 w3-right-align w3-padding-small">
+      <button onclick="document.getElementById('add').style.display='block'" (click)="getSchoolyears()"
+        class="w3-button w3-green w3-padding w3-margin"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+        {{HTMLtext[137]}}</button>
+      <button onclick="document.getElementById('add_bulk').style.display='block'" (click)="getSchoolyears()"
+        class="w3-button w3-green w3-padding w3-margin"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+        {{HTMLtext[138]}}</button>
+      <button (click)="refresh()" class="w3-button w3-yellow w3-padding w3-margin"><i class="fa fa-refresh"
+          aria-hidden="true"></i>
+          {{HTMLtext[122]}}</button>
+    </div>
+    <div class="w3-row">
+      <div class="w3-col m11 w3-center">
+        <div class="w3-responsive">
+          <table class="w3-table-all w3-card-4">
+            <tr>
+              <th>{{HTMLtext[139]}}</th>
+              <th>{{HTMLtext[124]}}</th>
+              <th>{{HTMLtext[125]}}</th>
+              <th>{{HTMLtext[126]}}</th>
+              <th>{{HTMLtext[127]}}</th>
+              <th>{{HTMLtext[109]}}</th>
+              <th>{{HTMLtext[110]}}</th>
+            </tr>
+            <tr *ngFor="let student of students" [ngClass]="{'w3-text-grey': !student.active}">
+              <td>{{student.classSchoolyears[0].schoolClass}}</td>
+              <td>{{student.lastName}}</td>
+              <td>{{student.firstName}}</td>
+              <td>{{student.email}}</td>
+              <td *ngIf="student.active"><i class="fa fa-check-square w3-text-green"></i></td>
+              <td *ngIf="!student.active"><i class="fa fa-times w3-text-red"></i></td>
+              <td><button (click)=onEdit(student.id) onclick="document.getElementById('edit').style.display='block'"><i
+                    class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+              <td><button (click)=onDelete(student.id)
+                  onclick="document.getElementById('delete').style.display='block'"><i class="fa fa-window-close"
+                    aria-hidden="true"></i></button></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="edit" class="w3-modal">
+  <div class="w3-modal-content w3-animate-top">
+    <form [formGroup]="editForm" (ngSubmit)="saveEditedUser()">
+      <div class="w3-card-4 w3-light-grey">
+        <header class="w3-container w3-orange">
+          <span onclick="document.getElementById('edit').style.display='none'"
+            class="w3-button w3-display-topright">&times;</span>
+          <h2>{{HTMLtext[140]}}</h2>
+        </header>
+        <div class="w3-container">
+          <div class="w3-row">
+            <div class="w3-container">
+              <p class="w3-col l6 w3-padding">
+                <label class="w3-text-orange"><b>{{HTMLtext[124]}}</b></label>
+                <input class="w3-input w3-border" name="last" type="text" formControlName="lastname"></p>
+              <p class="w3-col l6 w3-padding">
+                <label class="w3-text-orange"><b>{{HTMLtext[125]}}</b></label>
+                <input class="w3-input w3-border w3-lightgrey" name="first" type="text" formControlName="firstname"></p>
+            </div>
+          </div>
+          <div class="w3-row">
+            <p class="w3-col l6 w3-padding">
+              <label class="w3-text-orange"><b>{{HTMLtext[126]}}</b></label>
+              <input class="w3-input w3-border w3-lightgrey" name="last" type="text" formControlName="email"></p>
+            <p class="w3-col l6 w3-padding-large">
+              <input class="w3-check" type="checkbox" name="active" formControlName="active" [checked]="toEdit.active">
+              <label>{{HTMLtext[127]}}</label></p>
+          </div>
+          <p class=" w3-center">
+            <button type="button" (click)="saveEditedUser()" class="w3-btn w3-blue"
+              onclick="document.getElementById('edit').style.display='none'">{{HTMLtext[114]}}</button></p>
+        </div>
+      </div>
+    </form>
+
+    <form [formGroup]="classForm" (ngSubmit)="saveEditedClass()">
+      <div class="w3-card-4 w3-padding-small w3-light-grey">
+        <div class="w3-container w3-orange">
+          <h2>{{HTMLtext[141]}}</h2>
+        </div>
+        <div *ngIf="(toEdit | json) != '{}'" class="w3-container">
+          <p >
+            {{HTMLtext[142]}}: {{toEdit.firstName}} {{toEdit.lastName}}, {{HTMLtext[143]}} {{toEdit.classSchoolyears[0].schoolClass}}</p>
+          <div class="w3-row">
+              <p class="w3-col l6 w3-padding">
+                  <label class="w3-text-orange"><b>{{HTMLtext[144]}}</b></label>
+                  <select class="w3-select" name="class" type="text" formControlName="class">
+                    <option *ngFor="let classSchoolyear of classSchoolyears" [ngValue]="classSchoolyear.class_schoolyear_id"
+                    [selected]="classSchoolyear.class_schoolyear_id == toEdit.classSchoolyears[0].class_schoolyear_id">
+                      {{classSchoolyear.schoolClass}}
+                    </option>
+                  </select></p>
+          </div>
+          <p class=" w3-center">
+            <button class="w3-btn w3-blue" onclick="document.getElementById('edit').style.display='none'">
+              {{HTMLtext[145]}}
+            </button></p>
+        </div>
+      </div>
+    </form>
+
+    <form [formGroup]="passwordForm" (ngSubmit)="saveEditedPassword()">
+      <div class="w3-card-4 w3-padding-small w3-light-grey">
+        <div class="w3-container w3-orange">
+          <h2>{{HTMLtext[128]}}</h2>
+        </div>
+        <div class="w3-container">
+          <p *ngIf="toEdit">
+            {{HTMLtext[142]}}: {{toEdit.firstName}} {{toEdit.lastName}}</p>
+          <div class="w3-row">
+            <p class="w3-col l6 w3-padding">
+              <label class="w3-text-orange"><b>{{HTMLtext[41]}}</b></label>
+              <input (input)="checkPasswordMatchEdit()" class="w3-input w3-border" name="password" type="text" formControlName="password"></p>
+            <p class="w3-col l6 w3-padding">
+              <label class="w3-text-orange"><b>{{HTMLtext[42]}}</b></label>
+              <input (input)="checkPasswordMatchEdit()" class="w3-input w3-border" name="passwordagain" type="text" formControlName="passwordagain"></p>
+          </div>
+          <p class=" w3-center">
+            <button [disabled]="passwordForm.invalid" class="w3-btn w3-blue" onclick="document.getElementById('edit').style.display='none'">
+              {{HTMLtext[43]}}
+            </button></p>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="add" class="w3-modal">
+  <div class="w3-modal-content w3-animate-top">
+    <div class="w3-card-4 w3-light-grey">
+      <header class="w3-container w3-green">
+        <span onclick="document.getElementById('add').style.display='none'"
+          class="w3-button w3-display-topright">&times;</span>
+        <h2>{{HTMLtext[137]}}</h2>
+      </header>
+      <div class="w3-container">
+        <form class="w3-container" [formGroup]="addForm" (ngSubmit)="signupUser()">
+          <p class="w3-col l6 w3-padding">
+            <label class="w3-text-orange"><b>{{HTMLtext[139]}}</b></label>
+            <select class="w3-select" name="class" type="text" formControlName="class">
+              <option *ngFor="let classSchoolyear of classSchoolyears" [value]="classSchoolyear.class_schoolyear_id">
+                {{classSchoolyear.schoolClass}}
+              </option>
+            </select></p>
+          <div class="w3-text-red" *ngIf="addForm.get('class').touched && addForm.get('class').invalid">
+            {{HTMLtext[105]}}
+          </div>
+          <p>
+            <label class="w3-text-orange"><b>{{HTMLtext[124]}}</b></label>
+            <input class="w3-input w3-border" name="lastname" type="text" formControlName="lastname"></p>
+          <div class="w3-text-red" *ngIf="addForm.get('lastname').touched && addForm.get('lastname').invalid">
+            {{HTMLtext[105]}}
+          </div>
+          <p>
+            <label class="w3-text-orange"><b>{{HTMLtext[125]}}</b></label>
+            <input class="w3-input w3-border w3-lightgrey" name="firstname" type="text" formControlName="firstname"></p>
+          <div class="w3-text-red" *ngIf="addForm.get('firstname').touched && addForm.get('firstname').invalid">
+            {{HTMLtext[105]}}
+          </div>
+          <p>
+            <label class="w3-text-orange"><b>{{HTMLtext[126]}}</b></label>
+            <input class="w3-input w3-border w3-lightgrey" name="email" type="text" formControlName="email"></p>
+          <div class="w3-text-red" *ngIf="addForm.get('email').touched && addForm.get('email').invalid">
+            {{HTMLtext[105]}}
+          </div>
+          <p>
+            <label class="w3-text-orange"><b>{{HTMLtext[41]}}</b></label>
+            <input (input)="checkPasswordMatch()" class="w3-input w3-border w3-lightgrey" name="password" type="text" formControlName="password"></p>
+          <div class="w3-text-red" *ngIf="addForm.get('password').touched && addForm.get('password').invalid">
+            {{HTMLtext[105]}}
+          </div>
+          <p>
+            <label class="w3-text-orange"><b>{{HTMLtext[42]}}</b></label>
+            <input (input)="checkPasswordMatch()" class="w3-input w3-border w3-lightgrey" name="passwordagain" type="text"
+              formControlName="passwordagain"></p>
+          <div class="w3-text-red" *ngIf="!passwordsMatch">
+            {{HTMLtext[146]}}
+          </div>
+          <p>
+            <input class="w3-check" type="checkbox" name="active" checked="checked" formControlName="active">
+            <label>{{HTMLtext[127]}}</label></p>
+          <p class=" w3-center">
+            <button [disabled]="addForm.invalid" type="button" class="w3-btn w3-blue" (click)="signupUser()"
+              onclick="document.getElementById('add').style.display='none'">{{HTMLtext[117]}}</button></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="add_bulk" class="w3-modal">
+  <div class="w3-modal-content w3-animate-top">
+    <form>
+      <div class="w3-card-4 w3-light-grey">
+        <header class="w3-container w3-green">
+          <span onclick="document.getElementById('add_bulk').style.display='none'"
+            class="w3-button w3-display-topright">&times;</span>
+          <h2>{{HTMLtext[138]}}</h2>
+        </header>
+        <div class="w3-container">
+          <form class="w3-container">
+            <p>
+              <label class="w3-text-orange"><b>{{HTMLtext[153]}} {{getCurrentSchoolyearText()}}</b></label>
+            </p>
+              <p class=" w3-center">
+              <button class="w3-btn w3-blue" (click)="downloadWord()">
+                  <i class="w3-indigo fa fa-file-word-o" aria-hidden="true"></i>
+                Download classcodes
+              </button>
+            </p>
+            <p><label class="w3-text-orange"><b>{{HTMLtext[133]}}</b></label>
+              <input type="file" (change)="fileChangeListener($event)" name="myfile"></p>
+            <p class=" w3-center">
+              <button [disabled]="csvRecords.length == 0" class="w3-btn w3-blue" (click)="createBulkAccounts()"
+                onclick="document.getElementById('add_bulk').style.display='none'">{{HTMLtext[148]}}</button></p>
+          </form>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="delete" class="w3-modal">
+  <div class="w3-modal-content w3-animate-top">
+    <header class="w3-container w3-red">
+      <span onclick="document.getElementById('delete').style.display='none'"
+        class="w3-button w3-display-topright">&times;</span>
+      <h2>{{HTMLtext[149]}}</h2>
+    </header>
+    <div class="w3-container w3-center">
+      <p *ngIf(toDelete)>{{HTMLtext[135]}} {{toDelete.lastName}} {{toDelete.firstName}}?
+    </div>
+    <div class="w3-container w3-padding-small w3-center">
+      <button class="w3-button w3-red w3-margin" (click)="onDeleteFinal()"
+        onclick="document.getElementById('delete').style.display='none'"> {{HTMLtext[27]}}</button>
+      <button onclick="document.getElementById('delete').style.display='none'" class="w3-button w3-grey w3-margin"> 
+        {{HTMLtext[28]}}
+      </button>
+    </div>
+  </div>
+</div>

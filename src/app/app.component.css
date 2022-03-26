@@ -1,0 +1,39 @@
+.fa-list {
+    color: orange;
+    padding-right: 5px;
+  }
+  .fa-list-ol {
+    color: orange;
+    padding-right: 5px;
+  }
+  .fa-plus-circle {
+    color: lightgreen;
+    padding-right: 5px;
+  }
+  .fa-wrench {
+    color: orange;
+    padding-right: 5px;
+  }
+  .fa-address-card {
+    color: orange;
+    padding-right: 5px;
+  }
+  .fa-check-square {
+    color: green;
+  }
+  .fa-cog {
+    color: orange;
+    padding-right: 5px;
+  }
+  .fa-times-circle {
+    color: red;
+  }
+  .fa-window-close {
+    color: red;
+  }
+  .fa-pencil-square-o {
+    color: orange;
+  }
+  .full-height {
+    height: 80%;
+  }

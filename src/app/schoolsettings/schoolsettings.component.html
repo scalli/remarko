@@ -1,0 +1,332 @@
+<div class="w3-container">
+  <div class="w3-tiny w3-text-grey w3-padding">{{HTMLtext[100]}}</div>
+  <p>{{HTMLtext[101]}}</p>
+
+  <div class="w3-row">
+    <div class="w3-col l6">
+      <div class="w3-card-4 w3-padding">
+        <header class="w3-container w3-orange">
+          <h3>{{HTMLtext[102]}}</h3>
+        </header>
+
+        <div class="w3-container"> 
+          <form class="w3-container" [formGroup]="languageForm" (ngSubmit)="updateLanguage()">
+            <p>
+              <label class="w3-text-orange"><b>{{HTMLtext[103]}}</b></label>
+              <select class="w3-select" name="language" formControlName="language">
+                <option value="" disabled selected>Choose the language</option>
+                <option value="en" [selected]="language == 'en'">English</option>
+                <option value="fr" [selected]="language == 'fr'">Français</option>
+                <option value="nl" [selected]="language == 'nl'">Nederlands</option>
+              </select></p>
+            <p class=" w3-center">
+              <button class="w3-btn w3-blue" [disabled]="languageForm.invalid">{{HTMLtext[104]}}</button></p>
+          </form>
+        </div>
+      </div>
+      <div class="w3-text-red" *ngIf="languageForm.get('language').touched && languageForm.get('language').invalid">
+        {{HTMLtext[105]}}
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-row">
+    <div class="w3-col l6">
+      <div class="w3-card-4 w3-padding">
+        <header class="w3-container w3-orange">
+          <h3>{{HTMLtext[106]}}</h3>
+        </header>
+
+        <div id="remarkoptions" class="w3-row w3-container full-height">
+            <div class="w3-row w3-col m11 w3-right-align w3-padding-small">
+                <button onclick="document.getElementById('addRemarkoption').style.display='block'"
+                  class="w3-button w3-green w3-padding w3-margin"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+                  {{HTMLtext[107]}}
+                </button>
+              </div>
+          <div class="w3-row">
+            <div class="w3-col m11 w3-center">
+              <div class="w3-responsive">
+                <table class="w3-table-all w3-card-4">
+                  <tr>
+                    <th>{{HTMLtext[108]}}</th>
+                    <th>{{HTMLtext[109]}}</th>
+                    <th>{{HTMLtext[110]}}</th>
+                  </tr>
+                  <tr *ngFor="let remark of remarkoptions">
+                    <td>{{remark.option}}</td>
+                    <td><button (click)=onEdit(remark.id) onclick="document.getElementById('editRemarkoption').style.display='block'"><i
+                          class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+                    <td><button (click)=onDelete(remark.id) onclick="document.getElementById('deleteRemarkoption').style.display='block'"><i
+                          class="fa fa-window-close" aria-hidden="true"></i></button></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-row">
+    <div class="w3-col l6">
+      <div class="w3-card-4 w3-padding">
+        <header class="w3-container w3-orange">
+          <h3>{{HTMLtext[111]}}</h3>
+        </header>
+
+        <div class="w3-container">
+          <form class="w3-container" [formGroup]="schoolyearfilterForm" (ngSubmit)="updateSchoolyearfilter()">
+            <div class="w3-row">
+              <p class="w3-col l6 w3-padding">
+                  <select [(ngModel)]="currentSchoolyearId" class="w3-select" name="schoolyearfilter" formControlName="schoolyearfilter" type="text" >
+                    <option *ngFor="let schoolyear of schoolyears" [value]="schoolyear.id">
+                      {{schoolyear.schoolyear}}
+                    </option>
+                  </select></p>
+          </div>
+            <p class=" w3-center">
+              <button [disabled]="schoolyearfilterForm.invalid || !schoolyearfilterForm.touched" class="w3-btn w3-blue">{{HTMLtext[104]}}</button></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="w3-row">
+    <div class="w3-col l6">
+      <div class="w3-card-4 w3-padding">
+        <header class="w3-container w3-orange">
+          <h3>{{HTMLtext[156]}}</h3>
+        </header>
+
+        <div class="w3-container">
+          <form class="w3-container" [formGroup]="rankingSettingsForm" (ngSubmit)="updateRankingSettings()">
+            <div class="w3-row">
+              <div class="w3-col m4 w3-padding">
+                <label class="w3-text-orange"><b>{{HTMLtext[161]}}</b></label>
+                <input class="w3-input w3-border"  name="ranking_start_total" type="text" formControlName="ranking_start_total">
+              </div>
+            </div>
+            <div class="w3-row">
+              <div class="w3-col m3 w3-padding">
+                <label class="w3-text-orange"><b>{{HTMLtext[157]}}</b></label>
+                <input class="w3-input w3-border" name="one_penalty" type="text" formControlName="one_penalty">
+              </div>
+              <div class="w3-col m3 w3-padding">
+                <label class="w3-text-orange"><b>{{HTMLtext[158]}}</b></label>
+                <input class="w3-input w3-border" name="two_penalty" type="text" formControlName="two_penalty">
+              </div>
+              <div class="w3-col m3 w3-padding">
+                <label class="w3-text-orange"><b>{{HTMLtext[159]}}</b></label>
+                <input class="w3-input w3-border" name="three_penalty" type="text" formControlName="three_penalty">
+              </div>
+              <div class="w3-col m3 w3-padding">
+                <label class="w3-text-orange"><b>{{HTMLtext[160]}}</b></label>
+                <input class="w3-input w3-border" name="four_penalty" type="text" formControlName="four_penalty">
+              </div>
+            </div>
+            <div class="w3-row">
+              <div class="w3-col m6 w3-padding">
+                <label class="w3-text-orange"><b>{{HTMLtext[162]}}</b></label>
+                <input class="w3-input w3-border" name="ranking_start_date" type="date" formControlName="ranking_start_date">
+              </div>
+              <div class="w3-col m6 w3-padding">
+                <label class="w3-text-orange"><b>{{HTMLtext[163]}}</b></label>
+                <input class="w3-input w3-border" name="ranking_end_date" type="date" formControlName="ranking_end_date">
+              </div>
+            </div>
+            <p class=" w3-center">
+              <button [disabled]="rankingSettingsForm.invalid || !rankingSettingsForm.touched" class="w3-btn w3-blue">{{HTMLtext[104]}}</button></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-row">
+      <div class="w3-col l6">
+        <div class="w3-card-4 w3-padding">
+          <header class="w3-container w3-orange">
+            <h3>Classes (current schoolyear {{currentSchoolyearText}} only!)</h3>
+          </header>
+  
+          <div id="classSchoolyears" class="w3-row w3-container full-height">
+              <div class="w3-row w3-col m11 w3-right-align w3-padding-small">
+                  <button onclick="document.getElementById('addCs').style.display='block'"
+                    class="w3-button w3-green w3-padding w3-margin"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    Add class
+                  </button>
+                </div>
+            <div class="w3-row">
+              <div class="w3-col m11 w3-center">
+                <div class="w3-responsive">
+                  <table class="w3-table-all w3-card-4">
+                    <tr>
+                      <th>Class name</th>
+                      <th>{{HTMLtext[109]}}</th>
+                      <th>{{HTMLtext[110]}}</th>
+                    </tr>
+                    <tr *ngFor="let cs of classSchoolyears">
+                      <td>{{cs.schoolClass}}</td>
+                      <td><button (click)=onCSEdit(cs.class_schoolyear_id) onclick="document.getElementById('editCs').style.display='block'"><i
+                            class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+                      <td><button (click)=onCSDelete(cs.class_schoolyear_id) onclick="document.getElementById('deleteCS').style.display='block'"><i
+                            class="fa fa-window-close" aria-hidden="true"></i></button></td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+
+</div>
+
+<div id="editRemarkoption" class="w3-modal">
+    <div class="w3-modal-content w3-animate-top">
+      <form [formGroup]="editRemarkForm" (ngSubmit)="saveEditedRemark()">
+        <div class="w3-card-4 w3-light-grey">
+          <header class="w3-container w3-orange">
+            <span onclick="document.getElementById('editRemarkoption').style.display='none'"
+              class="w3-button w3-display-topright">&times;</span>
+            <h2>{{HTMLtext[112]}}</h2>
+          </header>
+          <div class="w3-container">
+            <div class="w3-row">
+              <div class="w3-container">
+                <p class="w3-col l6 w3-padding">
+                  <label class="w3-text-orange"><b>{{HTMLtext[113]}}</b></label>
+                  <input class="w3-input w3-border" name="remark" type="text" formControlName="remark"></p>
+              </div>
+            </div>
+            <p class=" w3-center">
+              <button type="button" (click)="saveEditedRemark()" class="w3-btn w3-blue"
+              onclick="document.getElementById('editRemarkoption').style.display='none'">{{HTMLtext[114]}}</button></p>
+          </div>
+        </div>
+        </form>
+    </div>
+  </div>
+
+<div id="addRemarkoption" class="w3-modal">
+    <div class="w3-modal-content w3-animate-top">
+        <div class="w3-card-4 w3-light-grey">
+          <header class="w3-container w3-green">
+            <span onclick="document.getElementById('addRemarkoption').style.display='none'"
+              class="w3-button w3-display-topright">&times;</span>
+            <h2>{{HTMLtext[115]}}</h2>
+          </header>
+          <div class="w3-container">
+            <form class="w3-container" [formGroup]="addRemarkForm" (ngSubmit)="addRemark()">
+              <p>
+                <label class="w3-text-orange"><b>{{HTMLtext[116]}}</b></label>
+                <input class="w3-input w3-border" name="remark" type="text" formControlName="remark"></p>
+                <div class="w3-text-red" *ngIf="addRemarkForm.get('remark').touched && addRemarkForm.get('remark').invalid">
+                  {{HTMLtext[105]}}
+                </div>
+              <p class=" w3-center">
+                <button [disabled]="addRemarkForm.invalid" type="button" class="w3-btn w3-blue" (click)="addRemark()"
+                onclick="document.getElementById('addRemarkoption').style.display='none'">{{HTMLtext[117]}}</button></p>
+            </form>
+          </div>
+        </div>
+    </div>
+  </div>
+
+<div id="deleteRemarkoption" class="w3-modal">
+    <div class="w3-modal-content w3-animate-top">
+      <header class="w3-container w3-red">
+        <span onclick="document.getElementById('deleteRemarkoption').style.display='none'"
+          class="w3-button w3-display-topright">&times;</span>
+        <h2>{{HTMLtext[118]}}</h2>
+      </header>
+      <div class="w3-container w3-center">
+        <p *ngIf(toDelete)>{{HTMLtext[119]}}
+      </div>
+      <div class="w3-container w3-padding-small w3-center">
+        <button class="w3-button w3-red w3-margin" (click)="onDeleteFinal()" 
+          onclick="document.getElementById('deleteRemarkoption').style.display='none'"> {{HTMLtext[27]}}</button>
+        <button onclick="document.getElementById('deleteRemarkoption').style.display='none'" class="w3-button w3-grey w3-margin"> 
+          {{HTMLtext[28]}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="editCs" class="w3-modal">
+      <div class="w3-modal-content w3-animate-top">
+        <form [formGroup]="editCSForm" (ngSubmit)="saveEditedCS()">
+          <div class="w3-card-4 w3-light-grey">
+            <header class="w3-container w3-orange">
+              <span onclick="document.getElementById('editCs').style.display='none'"
+                class="w3-button w3-display-topright">&times;</span>
+              <h2>Edit classes</h2>
+            </header>
+            <div class="w3-container">
+              <div class="w3-row">
+                <div class="w3-container">
+                  <p class="w3-col l6 w3-padding">
+                    <label class="w3-text-orange"><b>Class</b></label>
+                    <input class="w3-input w3-border" name="cs" type="text" formControlName="cs"></p>
+                </div>
+              </div>
+              <p class=" w3-center">
+                <button type="button" (click)="saveEditedCS()" class="w3-btn w3-blue"
+                onclick="document.getElementById('editCs').style.display='none'">{{HTMLtext[114]}}</button></p>
+            </div>
+          </div>
+          </form>
+      </div>
+    </div>
+
+    <div id="addCs" class="w3-modal">
+        <div class="w3-modal-content w3-animate-top">
+            <div class="w3-card-4 w3-light-grey">
+              <header class="w3-container w3-green">
+                <span onclick="document.getElementById('addCs').style.display='none'"
+                  class="w3-button w3-display-topright">&times;</span>
+                <h2>Add class</h2>
+              </header>
+              <div class="w3-container">
+                <form class="w3-container" [formGroup]="addCSForm" (ngSubmit)="addCS()">
+                  <p>
+                    <label class="w3-text-orange"><b>Class to add</b></label>
+                    <input class="w3-input w3-border" name="cs" type="text" formControlName="cs"></p>
+                    <div class="w3-text-red" *ngIf="addCSForm.get('cs').touched && addCSForm.get('cs').invalid">
+                      This field must be valid
+                    </div>
+                  <p class=" w3-center">
+                    <button [disabled]="addCSForm.invalid" type="button" class="w3-btn w3-blue" (click)="addCS()"
+                    onclick="document.getElementById('addCs').style.display='none'">{{HTMLtext[117]}}</button></p>
+                </form>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div id="deleteCS" class="w3-modal">
+          <div class="w3-modal-content w3-animate-top">
+            <header class="w3-container w3-red">
+              <span onclick="document.getElementById('deleteCS').style.display='none'"
+                class="w3-button w3-display-topright">&times;</span>
+              <h2>{{HTMLtext[118]}}</h2>
+            </header>
+            <div class="w3-container w3-center">
+              <p *ngIf(csToDelete)>{{HTMLtext[119]}}
+            </div>
+            <div class="w3-container w3-padding-small w3-center">
+              <button class="w3-button w3-red w3-margin" (click)="onDeleteCSFinal()" 
+                onclick="document.getElementById('deleteCS').style.display='none'"> {{HTMLtext[27]}}</button>
+              <button onclick="document.getElementById('deleteCS').style.display='none'" class="w3-button w3-grey w3-margin"> 
+                {{HTMLtext[28]}}
+              </button>
+            </div>
+          </div>
+        </div>

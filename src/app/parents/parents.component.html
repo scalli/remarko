@@ -1,0 +1,83 @@
+<div class="w3-container">
+  <div class="w3-tiny w3-text-grey w3-padding">{{HTMLtext[168]}}</div>
+
+  <div id="overview_students" class="w3-row w3-container full-height city">
+    <div class="w3-row w3-col m11 w3-right-align w3-padding-small">
+      <button (click)="generate()" onclick="document.getElementById('warning').style.display='block'"
+        class="w3-button w3-green w3-padding w3-margin"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+        {{HTMLtext[166]}}</button>
+      <button (click)="selectAll()" (click)="isSelected = !isSelected"
+        class="w3-button w3-orange w3-padding w3-margin"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+        {{HTMLtext[167]}}</button>
+    </div>
+    <div class="w3-row">
+      <div class="w3-col m11 w3-center">
+        <div class="w3-responsive">
+          <table class="w3-table-all w3-card-4">
+            <tr>
+              <th>Select</th>
+              <th>Class</th>
+              <th>Student</th>
+              <th>Parent</th>
+              <th>Parent username</th>
+            </tr>
+            <tr *ngFor="let parent of parents" [ngClass]="{'w3-text-grey': !parent.active}">
+              <td *ngIf='parent.parentId == 0'><input class="w3-check" type="checkbox"
+                  (change)='onSelectNew($event,parent)' [checked]="isSelected"></td>
+              <td *ngIf="parent.parentId != 0"><input class="w3-check" type="checkbox"
+                  (change)='onSelectParent($event,parent)' [checked]="isSelected"></td>
+              <td>{{parent.schoolClass}}</td>
+              <td>{{parent.studentFirstName}} &nbsp; {{parent.studentLastName}}</td>
+              <td>{{parent.parentFirstName}} &nbsp; {{parent.parentLastName}}</td>
+              <td>{{parent.parentEmail}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="download" class="w3-modal">
+  <div class="w3-modal-content w3-animate-top">
+    <header class="w3-container w3-orange">
+      <span onclick="document.getElementById('download').style.display='none'"
+        class="w3-button w3-display-topright">&times;</span>
+      <h2>Download logins</h2>
+    </header>
+    <div class="w3-container w3-padding-small w3-center">
+      <button class="w3-button w3-orange w3-padding w3-margin"
+        onclick="document.getElementById('download').style.display='none'">
+        <i class="fa fa-download" aria-hidden="true"></i>
+        <angular2csv [data]="lastCreatedOrChanged" filename="test.csv" [options]="options"></angular2csv>
+      </button>
+      <button onclick="document.getElementById('download').style.display='none'" class="w3-button w3-grey w3-margin">
+        {{HTMLtext[28]}}
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="warning" class="w3-modal">
+  <div class="w3-modal-content w3-animate-top">
+    <header class="w3-container w3-red">
+      <span onclick="document.getElementById('warning').style.display='none'"
+        class="w3-button w3-display-topright">&times;</span>
+      <h2>Warning</h2>
+    </header>
+    <div class="w3-container w3-center">
+      <p>Please, beware before you continue: </p>
+      <p>1. If you regenerate passwords for existing accounts, the old logins will be no longer valid!</p>
+      <p>2. This will be your only change to download the (re)generated passwords</p>
+    </div>
+    <div class="w3-container w3-padding-small w3-center">
+      <button class="w3-button w3-red w3-margin" onclick="document.getElementById('warning').style.display='none'; 
+                      document.getElementById('download').style.display='block'">
+        Yes, (re)generate
+      </button>
+      <button onclick="document.getElementById('warning').style.display='none'" class="w3-button w3-grey w3-margin">
+        {{HTMLtext[28]}}
+      </button>
+    </div>
+  </div>
+</div>

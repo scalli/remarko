@@ -347,7 +347,7 @@ applyTodayFilter(){
   remarksFilter.toDate = this.filterForm.get('filterDateTo').value; //TODAY
   remarksFilter.authorId = 0;
   remarksFilter.studentId = JSON.parse(localStorage.getItem('currentUser')).id;
-  remarksFilter.schoolClassId = 0;
+  remarksFilter.class1Id = 0;
 
   remarksFilter.severities = [];
   remarksFilter.severities.push(1);

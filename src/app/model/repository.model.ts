@@ -941,7 +941,9 @@ getFilteredRemarks(remarksFilter: RemarkFilterForm){
         data => {
             console.log("remarksfilter");
             console.log(remarksFilter);
-            this.filteredRemarks = data;
+            this.filteredRemarks = data["data"];
+            console.log("filtered remarks:");
+            console.log(this.filteredRemarks);
             this.filteredRemarksArrived.next(data);
         },
         error => {

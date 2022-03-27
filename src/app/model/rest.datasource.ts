@@ -288,8 +288,10 @@ saveRemarks(remarks: RemarksSaveForm): Observable<RemarksSaveForm>{
 }
 
 getFilteredRemarks(remarkFilter: RemarkFilterForm){
+    console.log("remarksfilter");
+    console.log(remarkFilter);
     return this.sendRequest<[]>("POST",
-        this.url + '/' +  JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal + '/getFilteredRemarks', remarkFilter);
+        this.getSubdomainRESTurl() + '/filteredRemarks', remarkFilter);
 }
 
 getStudentsOwnFilteredRemarks(remarkFilter: RemarkFilterForm){

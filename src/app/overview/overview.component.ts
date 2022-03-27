@@ -466,10 +466,10 @@ setSeverity4(){
     }
 
     if(this.selectedSchoolClass) {
-      remarksFilter.schoolClassId = this.selectedSchoolClass.schoolyear_id;
+      remarksFilter.class1Id = this.selectedSchoolClass.schoolyear_id;
     }
     else {
-      remarksFilter.schoolClassId = 0;
+      remarksFilter.class1Id = 0;
     }
 
     remarksFilter.severities = [];
@@ -514,7 +514,7 @@ setSeverity4(){
     remarksFilter.toDate = this.filterForm.get('filterDateTo').value; //TODAY
     remarksFilter.authorId = 0;
     remarksFilter.studentId = 0;
-    remarksFilter.schoolClassId = 0;
+    remarksFilter.class1Id = 0;
 
     remarksFilter.severities = [];
     remarksFilter.severities.push(1);

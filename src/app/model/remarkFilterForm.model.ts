@@ -6,6 +6,6 @@ export class RemarkFilterForm {
                 public fromDate?: string,
                 public toDate?: string,
                 public severities?: number[],
-                public schoolClassId?: number
+                public class1Id?: number
                 ) {}
 }

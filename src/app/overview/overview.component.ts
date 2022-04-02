@@ -650,12 +650,17 @@ initGraph(){
      pair["series"].push(seriespair4);
      this.data.push(pair);
   }
+  console.log("initgraph");
   console.log(this.data);
+  console.log(this.filteredRemarks);
 
   for(let i=0; i<this.filteredRemarks.length; i++){
     for(let j=0; j<this.data.length; j++){
-      if(this.data[j]["name"] == this.filteredRemarks[i][1]){
-        this.data[j]["series"][this.filteredRemarks[i][3]-1]["value"]++;
+      // console.log(this.data[j]["name"]);
+      // console.log(this.filteredRemarks[i]["date"].substring(0,10));
+      if(this.data[j]["name"] == this.filteredRemarks[i]["date"].substring(0,10)){
+        let severitynumber = Number(this.filteredRemarks[i]["severity_id"]);
+        this.data[j]["series"][severitynumber - 1]["value"]++;
       }
     }
   }

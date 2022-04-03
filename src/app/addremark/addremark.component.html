@@ -21,7 +21,7 @@
               <button (click)='selectStudent(i)' class="w3-button w3-tiny w3-round w3-green">
                   <i class="fa fa-plus-circle" ></i>
               </button>
-            {{student.classSchoolyears[0].schoolClass}} | {{student.lastName}} {{student.firstName}} 
+            {{student.class1}} | {{student.lastName}} {{student.firstName}} 
           </div>
       </li>
     </ul>
@@ -82,7 +82,7 @@
                   <button (click)='unSelectStudent(i)' class="w3-button w3-tiny w3-round w3-red">
                       <i class="fa fa-window-close w3-padding-small" aria-hidden="true"></i>
                   </button>
-                {{student.classSchoolyears[0].schoolClass}} | {{student.lastName}} {{student.firstName}}
+                {{student.class1}} | {{student.lastName}} {{student.firstName}}
             </div>
           </li>
         </ul>

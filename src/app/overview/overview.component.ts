@@ -466,7 +466,7 @@ setSeverity4(){
     }
 
     if(this.selectedSchoolClass) {
-      remarksFilter.class1Id = this.selectedSchoolClass.schoolyear_id;
+      remarksFilter.class1Id = this.selectedSchoolClass.id;
     }
     else {
       remarksFilter.class1Id = 0;
@@ -617,6 +617,7 @@ getDatesBetween (startDate, endDate) {
     dates.push(currentDate);
     currentDate = addDays.call(currentDate, 1);
   }
+  dates.reverse();
   console.log(dates);
   return dates;
 };

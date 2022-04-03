@@ -284,7 +284,7 @@ login(username: string, password: string, schoolcodeinternal: string){
 
 saveRemarks(remarks: RemarksSaveForm): Observable<RemarksSaveForm>{
     return this.sendRequest<RemarksSaveForm>("POST",
-        this.url + '/' +  JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal + '/remarks', remarks);
+        this.getSubdomainRESTurl() + '/storeSameRemarkForMultipleStudents', remarks);
 }
 
 getFilteredRemarks(remarkFilter: RemarkFilterForm){

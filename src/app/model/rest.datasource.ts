@@ -252,7 +252,7 @@ getCSRFToken(){
         withCredentials: true
        };
     console.log("getting csrf token1");
-    return this.http.get<Loginresponse>('http://msninove.restfulapi.test/sanctum/csrf-cookie',requestOptions);
+    return this.http.get<Loginresponse>('http://restfulapi.test/sanctum/csrf-cookie',requestOptions);
     
 }
 
@@ -296,7 +296,7 @@ getFilteredRemarks(remarkFilter: RemarkFilterForm){
 
 getStudentsOwnFilteredRemarks(remarkFilter: RemarkFilterForm){
     return this.sendRequest<[]>("POST",
-        this.url + '/' +  JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal + '/getStudentsOwnFilteredRemarks', remarkFilter);
+        this.getSubdomainRESTurl() + '/getStudentsOwnFilteredRemarks', remarkFilter);
 }
 
 deleteRemark(remarkId: number){

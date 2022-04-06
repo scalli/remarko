@@ -65,7 +65,7 @@ export class RestDataSource {
 
    //----------------------------------------------------- START OF TEACHER METHODS -----------------------------------------------
     getTeachers(): Observable<Teacher[]> {
-        return this.sendRequest<Teacher[]>("GET", this.url + '/' +  JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal +'/teachers');
+        return this.sendRequest<Teacher[]>("GET", this.getSubdomainRESTurl() +'/teachers');
     }
 
     saveTeacher(teacher: SignupUser): Observable<SignupUser> {
@@ -202,7 +202,7 @@ getClassRankings(classId: number){
 }
 
 getRankingSettings(){
-    return this.sendRequest<[]>("GET", this.url + '/' + JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal + '/getRankingSettings');
+    return this.sendRequest<[]>("GET", this.getSubdomainRESTurl() + '/rankingsettings');
 }
 
 updateRankingSettings(settings: RankingSettings){
@@ -296,7 +296,7 @@ getFilteredRemarks(remarkFilter: RemarkFilterForm){
 
 getStudentsOwnFilteredRemarks(remarkFilter: RemarkFilterForm){
     return this.sendRequest<[]>("POST",
-        this.getSubdomainRESTurl() + '/getStudentsOwnFilteredRemarks', remarkFilter);
+        this.getSubdomainRESTurl() + '/filteredRemarks', remarkFilter);
 }
 
 deleteRemark(remarkId: number){

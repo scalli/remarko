@@ -295,17 +295,17 @@ setSeverity4(){
     this.todaysThrees = 0;
     this.todaysFours = 0;
     for(var i=0; i< this.filteredRemarks.length; i++){
-      if(this.filteredRemarks[i][3] == 1){
+      if(this.filteredRemarks[i]['severity_id'] == 1){
         this.todaysOnes++;
         console.log(this.todaysOnes);
       }
-      if(this.filteredRemarks[i][3] == 2){
+      if(this.filteredRemarks[i]['severity_id'] == 2){
         this.todaysTwos++;
       }
-      if(this.filteredRemarks[i][3] == 3){
+      if(this.filteredRemarks[i]['severity_id'] == 3){
         this.todaysThrees++;
       }
-      if(this.filteredRemarks[i][3] == 4){
+      if(this.filteredRemarks[i]['severity_id'] == 4){
         this.todaysFours++;
       }
     }
@@ -382,13 +382,13 @@ setSeverity4(){
     var document = new Document();
     // document.addParagraph(new Paragraph("Rapport opmerkingen").title());
     document.addParagraph(this.createHeading("Rapport opmerkingen"));
-    document.addParagraph(new Paragraph().addRun(new TextRun("Gegenereerd op: " + this.today.toLocaleString()).bold().break()));
+    document.addParagraph(new Paragraph().addRun(new TextRun("Gegenereerd op: " + this.today).bold().break()));
 
     document.addParagraph(new Paragraph("Toegepaste filters: "));
 
     document.addParagraph(new Paragraph("leerling(en): " + this.getFilteredStudents()).bullet());
-    document.addParagraph(new Paragraph("van: " + this.filterDateFrom).bullet());
-    document.addParagraph(new Paragraph("tot: " + this.filterDateTo).bullet());
+    document.addParagraph(new Paragraph("van: " + this.filterDateFrom.split("-").reverse().join("-")).bullet());
+    document.addParagraph(new Paragraph("tot: " + this.filterDateTo.split("-").reverse().join("-")).bullet());
     document.addParagraph(new Paragraph("door: " + this.getFilteredAuthors()).bullet());
     document.addParagraph(new Paragraph("ernst: " + this.getFilteredSeverities()).bullet());
 
@@ -402,14 +402,14 @@ setSeverity4(){
     table.getRow(0).getCell(4).CellProperties.setWidth(25, WidthType.PERCENTAGE);
  
     for(var i=0; i< this.filteredRemarks.length; i++){
-      table.getRow(i).getCell(0).addContent(new Paragraph(this.filteredRemarks[i][10]));
-      table.getRow(i).getCell(1).addContent(new Paragraph(this.filteredRemarks[i][9] + " " + this.filteredRemarks[i][8]));
+      table.getRow(i).getCell(0).addContent(new Paragraph(this.filteredRemarks[i]['class1']));
+      table.getRow(i).getCell(1).addContent(new Paragraph(this.filteredRemarks[i]['studentFirstName'] + " " + this.filteredRemarks[i]['studentLastName']));
       // table.getRow(i).getCell(2).addContent(new Paragraph(this.filteredRemarks[i][3] + " - " + this.filteredRemarks[i][2]));
-      table.getRow(i).getCell(2).addContent(new Paragraph(this.filteredRemarks[i][3] + " - " + this.filteredRemarks[i][2]));
-      let remarkColor: string = this.getRemarkColor(this.filteredRemarks[i][3]);
+      table.getRow(i).getCell(2).addContent(new Paragraph(this.filteredRemarks[i]['severity_id'] + " - " + this.filteredRemarks[i]['remark']));
+      let remarkColor: string = this.getRemarkColor(this.filteredRemarks[i]['severity_id']);
       table.getRow(i).getCell(2).CellProperties.Borders.addBottomBorder(BorderStyle.DOUBLE, 3, remarkColor);
-      table.getRow(i).getCell(3).addContent(new Paragraph(this.filteredRemarks[i][1]));
-      table.getRow(i).getCell(4).addContent(new Paragraph(this.filteredRemarks[i][6] + " " + this.filteredRemarks[i][7]));
+      table.getRow(i).getCell(3).addContent(new Paragraph(this.filteredRemarks[i]['date'].split("-").reverse().join("-")));
+      table.getRow(i).getCell(4).addContent(new Paragraph(this.filteredRemarks[i]['teacherFirstName'] + " " + this.filteredRemarks[i]['teacherLastName']));
 
     }
     

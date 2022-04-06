@@ -146,7 +146,7 @@
 
             /
 
-            {{HTMLtext[9]}}: {{filterDateFrom}} {{HTMLtext[10]}}: {{filterDateTo}} /
+            {{HTMLtext[9]}}: {{filterDateFrom | date: 'dd-MM-yyyy'}} {{HTMLtext[10]}}: {{filterDateTo | date: 'dd-MM-yyyy'}} /
             {{HTMLtext[11]}}: {{(filterAuthorId != "all" ? HTMLtext[19] : HTMLtext[20])}} /
             {{HTMLtext[13]}}: {{(filterSeverity1) ? "1" : ""}} {{(filterSeverity2) ? "2" : ""}}
             {{(filterSeverity3) ? "3" : ""}} {{(filterSeverity4) ? "4" : ""}}
@@ -314,7 +314,7 @@
                 <span><b>({{remark['class1']}})</b></span>
               </div>
               <div class="w3-small">{{remark['remark']}} <span *ngIf="remark['extra_info'] != null">**</span></div>
-              <div class="w3-small">{{remark['date']}}</div>
+              <div class="w3-small">{{remark['date'] | date: 'dd-MM-yyyy'}}</div>
               <div class="w3-small">
                 <span>{{remark['teacherLastName']}}</span>
                 <span>&nbsp;</span>

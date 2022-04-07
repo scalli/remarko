@@ -11,5 +11,5 @@ export class Teacher {
                 public language?: string,
                 public lastLoginDate?: string,
                 public active?: boolean,
-                public roles?: Role[]) {}
+                public role?: number) {}
 }

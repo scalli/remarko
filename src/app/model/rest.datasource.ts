@@ -77,17 +77,15 @@ export class RestDataSource {
     }
 
     updateTeacherInfo(teacher: Teacher): Observable<Teacher> {
-        return this.sendRequest<Teacher>("PUT",
-            this.url + '/' +  JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal +'/updateuserinfo', teacher);
+        return this.sendRequest<Teacher>("PATCH", this.getSubdomainRESTurl() +'/teachers/' + teacher.id, teacher);
     }
 
     updateTeacherPassword(editPasswordForm: EditPasswordForm): Observable<EditPasswordForm> {
-        return this.sendRequest<EditPasswordForm>("PUT",
-            this.url + '/' +  JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal +'/updateuserpassword', editPasswordForm);
+        return this.sendRequest<EditPasswordForm>("PATCH", this.getSubdomainRESTurl() +'/teachers/' + editPasswordForm.id, editPasswordForm);
     }
 
     deleteTeacher(id: number): Observable<Teacher> {
-        return this.sendRequest<Teacher>("DELETE",  this.url + '/' +  JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal + '/user/' + id);
+        return this.sendRequest<Teacher>("DELETE",  this.getSubdomainRESTurl() +'/teachers/' + id);
     }
 
 //--------------------------------------- END OF TEACHER METHODS -----------------------------------------------------------------
@@ -130,35 +128,31 @@ getStudents(): Observable<Student[]> {
 // }
 
 saveStudent(student: SignupUser): Observable<SignupUser> {
-    return this.sendRequest<SignupUser>("POST", this.url + '/' +  JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal +'/user1', student);
+    return this.sendRequest<SignupUser>("POST", this.getSubdomainRESTurl() +'/students', student);
 }
 
 saveStudents(students: SignupUser[]) : Observable<SignupUser[]> {
-    return this.sendRequests<SignupUser[]>("POST", this.url + '/' +  JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal +'/users1', students);
+    return this.sendRequests<SignupUser[]>("POST", this.getSubdomainRESTurl() +'/students', students);
 }
 
 updateStudent(student: Student): Observable<Student> {
-    return this.sendRequest<Student>("PUT",
-        this.url + '/' + JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal +'/update/user', student);
+    return this.sendRequest<Student>("PATCH", this.getSubdomainRESTurl() +'/students/' + student.id, student);
 }
 
 updateStudentInfo(student: Student): Observable<Student> {
-    return this.sendRequest<Student>("PUT",
-        this.url + '/' +  JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal +'/updateuserinfo', student);
+    return this.sendRequest<Student>("PATCH", this.getSubdomainRESTurl() + '/students/' + student.id, student);
 }
 
 updateStudentPassword(editPasswordForm: EditPasswordForm): Observable<EditPasswordForm> {
-    return this.sendRequest<EditPasswordForm>("PUT",
-        this.url + '/' +  JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal +'/updateuserpassword', editPasswordForm);
+    return this.sendRequest<EditPasswordForm>("PATCH", this.getSubdomainRESTurl() + '/students+' + editPasswordForm.id, editPasswordForm);
 }
 
 deleteStudent(id: number): Observable<Student> {
-    return this.sendRequest<Student>("DELETE",  this.url + '/' +  JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal+ '/user/' + id);
+    return this.sendRequest<Student>("DELETE",  this.getSubdomainRESTurl() + '/students/' + id);
 }
 
 updateSchoolClass(student: Student): Observable<Student> {
-    return this.sendRequest<Student>("PUT",
-    this.url + '/' +  JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal +'/updateschoolclass', student);
+    return this.sendRequest<Student>("PATCH", this.getSubdomainRESTurl() + '/students/' + student.id, student);
 }
 
 //--------------------------------------- END OF STUDENT METHODS -----------------------------------------------------------------

@@ -69,8 +69,8 @@ export class TeachersComponent implements OnInit {
         // this.router.navigateByUrl("/teachers");
         // this.model.getTeachers();
         // this.teachers = this.model.getTeachersFromRAM();
-        // this.teachers = JSON.parse(localStorage.getItem('teachers'));
-        this.teachers = data;
+        this.teachers = JSON.parse(localStorage.getItem('teachers'));
+        // this.teachers = data;
       })
   }
 
@@ -79,7 +79,7 @@ export class TeachersComponent implements OnInit {
   // }
 
   refresh(){
-    this.model.getTeachers();
+    this.teachers = this.model.getTeachers();
     // this.teachers = this.model.getTeachersFromRAM();
     console.log(this.teachers);
   }
@@ -350,6 +350,7 @@ export class TeachersComponent implements OnInit {
           //   schoolyear: "2017-2018"
           // }
           this.signUps.push(newSignUp);
+          console.log(this.signUps);
 //          this.model.signUpTeacher(newSignUp);
           //console.log(newSignUp);
     })

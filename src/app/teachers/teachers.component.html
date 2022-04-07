@@ -26,12 +26,12 @@
               <th>{{HTMLtext[109]}}</th>
               <th>{{HTMLtext[110]}}</th>
             </tr>
-            <tr *ngFor="let teacher of teachers"  [ngClass]="{'w3-text-grey': !teacher.active}">
+            <tr *ngFor="let teacher of teachers"  [ngClass]="{'w3-text-grey': (teacher.active == 0)}">
               <td>{{teacher.lastName}}</td>
               <td>{{teacher.firstName}}</td>
               <td>{{teacher.email}}</td>
-              <td *ngIf="teacher.active"><i class="fa fa-check-square w3-text-green"></i></td>
-              <td *ngIf="!teacher.active"><i class="fa fa-times w3-text-red"></i></td>
+              <td *ngIf="teacher.active == 1"><i class="fa fa-check-square w3-text-green"></i></td>
+              <td *ngIf="teacher.active == 0"><i class="fa fa-times w3-text-red"></i></td>
               <td><button (click)=onEdit(teacher.id) onclick="document.getElementById('edit').style.display='block'"><i
                     class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
               <td><button (click)=onDelete(teacher.id) onclick="document.getElementById('delete').style.display='block'"><i

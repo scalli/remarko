@@ -137,7 +137,12 @@ export class Model {
     }
 
     getTeacher(id: number): Teacher {
-        return this.teachers.find(p => this.locator(p, id));
+        this.teachers  = JSON.parse(localStorage.getItem('teachers'));
+        let t = this.teachers.find(i => i.id === id);
+        // console.log(localStorage.getItem('teachers'));
+        // console.log(t);
+        return t;
+        // return this.teachers.find(p => this.locator(p, id));
     }
 
     signUpTeacher(signup: SignupUser){
@@ -354,7 +359,10 @@ sortByclass(stud1: Student, stud2: Student): number{
 }
 
 getStudent(id: number): Student {
-    return this.students.find(p => this.locator(p, id));
+    this.students  = JSON.parse(localStorage.getItem('students'));
+    let t = this.students.find(i => i.id === id);
+    return t;
+    // return this.students.find(p => this.locator(p, id));
 }
 
 // getStudent(id: number): Student {
@@ -517,6 +525,7 @@ getSchoolyearsFromRAM() : Schoolyear[]{
 }
 
 getClassSchoolyearsFromRAM() : Class_schoolyear[]{
+    this.classSchoolyears = JSON.parse(localStorage.getItem('teachers'));
     return this.classSchoolyears;
 }
 

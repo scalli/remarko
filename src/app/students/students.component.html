@@ -26,13 +26,13 @@
               <th>{{HTMLtext[109]}}</th>
               <th>{{HTMLtext[110]}}</th>
             </tr>
-            <tr *ngFor="let student of students" [ngClass]="{'w3-text-grey': !student.active}">
+            <tr *ngFor="let student of students" [ngClass]="{'w3-text-grey': (student.active == 0)}">
               <td>{{student.class1}}</td>
               <td>{{student.lastName}}</td>
               <td>{{student.firstName}}</td>
               <td>{{student.email}}</td>
-              <td *ngIf="student.active"><i class="fa fa-check-square w3-text-green"></i></td>
-              <td *ngIf="!student.active"><i class="fa fa-times w3-text-red"></i></td>
+              <td *ngIf="student.active == 1"><i class="fa fa-check-square w3-text-green"></i></td>
+              <td *ngIf="student.active == 0"><i class="fa fa-times w3-text-red"></i></td>
               <td><button (click)=onEdit(student.id) onclick="document.getElementById('edit').style.display='block'"><i
                     class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
               <td><button (click)=onDelete(student.id)
@@ -71,7 +71,7 @@
               <label class="w3-text-orange"><b>{{HTMLtext[126]}}</b></label>
               <input class="w3-input w3-border w3-lightgrey" name="last" type="text" formControlName="email"></p>
             <p class="w3-col l6 w3-padding-large">
-              <input class="w3-check" type="checkbox" name="active" formControlName="active" [checked]="toEdit.active">
+              <input class="w3-check" type="checkbox" name="active" formControlName="active" >
               <label>{{HTMLtext[127]}}</label></p>
           </div>
           <p class=" w3-center">
@@ -88,14 +88,14 @@
         </div>
         <div *ngIf="(toEdit | json) != '{}'" class="w3-container">
           <p >
-            {{HTMLtext[142]}}: {{toEdit.firstName}} {{toEdit.lastName}}, {{HTMLtext[143]}} {{toEdit.classSchoolyears[0].schoolClass}}</p>
+            {{HTMLtext[142]}}: {{toEdit.firstName}} {{toEdit.lastName}}, {{HTMLtext[143]}} {{toEdit.class1}}</p>
           <div class="w3-row">
               <p class="w3-col l6 w3-padding">
                   <label class="w3-text-orange"><b>{{HTMLtext[144]}}</b></label>
                   <select class="w3-select" name="class" type="text" formControlName="class">
-                    <option *ngFor="let classSchoolyear of classSchoolyears" [ngValue]="classSchoolyear.class_schoolyear_id"
-                    [selected]="classSchoolyear.class_schoolyear_id == toEdit.classSchoolyears[0].class_schoolyear_id">
-                      {{classSchoolyear.schoolClass}}
+                    <option *ngFor="let classSchoolyear of classSchoolyears" [ngValue]="classSchoolyear.id"
+                    [selected]="classSchoolyear.id == toEdit.class1_id">
+                      {{classSchoolyear.class1}}
                     </option>
                   </select></p>
           </div>
@@ -146,8 +146,8 @@
           <p class="w3-col l6 w3-padding">
             <label class="w3-text-orange"><b>{{HTMLtext[139]}}</b></label>
             <select class="w3-select" name="class" type="text" formControlName="class">
-              <option *ngFor="let classSchoolyear of classSchoolyears" [value]="classSchoolyear.class_schoolyear_id">
-                {{classSchoolyear.schoolClass}}
+              <option *ngFor="let classSchoolyear of classSchoolyears" [value]="classSchoolyear.id">
+                {{classSchoolyear.class1}}
               </option>
             </select></p>
           <div class="w3-text-red" *ngIf="addForm.get('class').touched && addForm.get('class').invalid">

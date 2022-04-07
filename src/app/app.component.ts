@@ -111,6 +111,8 @@ export class AppComponent {
   }
 
   logout(){
+    this.model.logout();
+
     var schoolcode;
     if(localStorage.getItem('schoolcode')){
       schoolcode = localStorage.getItem('schoolcode');

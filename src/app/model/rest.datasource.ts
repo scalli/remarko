@@ -69,11 +69,11 @@ export class RestDataSource {
     }
 
     saveTeacher(teacher: SignupUser): Observable<SignupUser> {
-        return this.sendRequest<SignupUser>("POST", this.url + '/' +  JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal +'/user1', teacher);
+        return this.sendRequest<SignupUser>("POST", this.getSubdomainRESTurl() +'/teachers', teacher);
     }
 
     saveTeachers(teachers: SignupUser[]) : Observable<SignupUser[]> {
-        return this.sendRequests<SignupUser[]>("POST", this.url + '/' +  JSON.parse(localStorage.getItem('currentSchool')).schoolcodeInternal +'/users1', teachers);
+        return this.sendRequests<SignupUser[]>("POST", this.getSubdomainRESTurl() +'/multipleTeachers', teachers);
     }
 
     updateTeacherInfo(teacher: Teacher): Observable<Teacher> {
@@ -276,6 +276,11 @@ login(username: string, password: string, schoolcodeinternal: string){
     //         "password": password
     //     }
     // );
+}
+
+logout(){
+    return this.sendRequest<any>("POST",
+        this.getSubdomainRESTurl() + '/logout');
 }
 
 //--------------------------------------- END OF LOGIN METHODS -----------------------------------------------------------------

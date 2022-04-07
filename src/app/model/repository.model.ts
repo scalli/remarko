@@ -121,7 +121,7 @@ export class Model {
         this.dataSource.getTeachers().subscribe(
             data => 
                 {
-                    this.teachers = data;
+                    this.teachers = data['data'];
                     //this.messageService.reportMessage(new Message("Teachers loaded successfully.",false));
                     localStorage.setItem('teachers',JSON.stringify(this.teachers));
                     this.teachersChangeDetected.next(data);
@@ -711,6 +711,18 @@ login(username: string, password: string, schoolcodeexternal: string){
     );
 }
 
+logout(){
+    this.dataSource.logout().subscribe(
+        data => {
+            this.messageService.reportMessage(new Message("You are logged out now!", false));
+        },
+        error => {
+            this.messageService.reportMessage(new Message("Error logging out",true));
+            console.log(error);
+        }
+    )
+}
+
 getLoggedInUser(){
     this.dataSource.getLoggedInUser().subscribe(
         data => {
@@ -1135,10 +1147,11 @@ getClassRankings(classId: number){
 getRankingSettings(){
     this.dataSource.getRankingSettings().subscribe(
         data => {
+            let rankingSettings = data['data'][0];
             console.log("Rankingsettings loaded");
-            localStorage.setItem("rankingSettings", JSON.stringify(data));
+            localStorage.setItem("rankingSettings", JSON.stringify(rankingSettings));
             //this.rankingSettingsLoaded.next(data);
-            this.classRankingsLoaded.next(data);
+            this.classRankingsLoaded.next(rankingSettings);
         },
         error => {
             console.log("Error loading class rankings");

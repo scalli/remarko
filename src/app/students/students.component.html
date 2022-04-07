@@ -27,7 +27,7 @@
               <th>{{HTMLtext[110]}}</th>
             </tr>
             <tr *ngFor="let student of students" [ngClass]="{'w3-text-grey': !student.active}">
-              <td>{{student.classSchoolyears[0].schoolClass}}</td>
+              <td>{{student.class1}}</td>
               <td>{{student.lastName}}</td>
               <td>{{student.firstName}}</td>
               <td>{{student.email}}</td>

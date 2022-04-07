@@ -31,7 +31,8 @@ export class RankingComponent implements OnInit {
 
   ngOnInit() { 
     this.HTMLtext = JSON.parse(localStorage.getItem('multiLangText'));
-    this.currentUserRoleId = JSON.parse(localStorage.getItem('currentUser')).roles[0].id;
+    // this.currentUserRoleId = JSON.parse(localStorage.getItem('currentUser')).roles[0].id;
+    this.currentUserRoleId = JSON.parse(localStorage.getItem('currentUser')).role;
     this.currentUserId = JSON.parse(localStorage.getItem('currentUser')).id;
     // console.log(this.currentUserRoleId);
     this.positions = [0];
@@ -144,7 +145,9 @@ export class RankingComponent implements OnInit {
 
   getLastUpdatedDate(): void{
     // this.last_update = JSON.parse(localStorage.getItem('rankingSettings'))[0][8] * 1000;
-    this.last_update = JSON.parse(localStorage.getItem('rankingSettings')).last_updated * 1000;
+    this.last_update = JSON.parse(localStorage.getItem('rankingSettings')).last_updated *1000;
+    // this.last_update = (localStorage.getItem('rankingSettings'))['last_updated'];
+    console.log(this.last_update);
     this.lastUpdated = formatDate(this.last_update, 'yyyy-MM-dd', 'en');
   }
 
